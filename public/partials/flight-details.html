@@ -1,0 +1,29 @@
+<div class="well">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="fnt-30 bold-text" data-ng-init="result.cost = randomNumber()">
+                Rs {{result.cost}}
+            </div>
+            <div class="row">
+                <div class="{{query.$$isReturn ? 'col-md-6' : 'col-md-12'}}"
+                data-ng-init="result.leaveing = {};result.leaveing.deptDate = randomDate(result.order);result.leaveing.arivalDate = randomDate(result.order);">
+                    <div class="fnt-wgt-600">A1-200</div>
+                    <div class="fnt-16 bold-text">{{query.sourceStation.name}} > {{query.destStation.name}}</div>
+                    <div class="fnt-16 bold-text">Depart: {{result.leaveing.deptDate | date:option.dateFilter}}</div>
+                    <div class="fnt-16 bold-text">Arival: {{result.leaveing.arivalDate | date:option.dateFilter}}</div>
+                </div>
+                <div class="col-md-6" data-ng-show="query.$$isReturn"
+                data-ng-init="result.ret = {};result.ret.deptDate = randomDate(result.order);result.ret.arivalDate = randomDate(result.order);">
+                    <div class="fnt-wgt-600">A1-200</div>
+                    <div class="fnt-16 bold-text">{{query.destStation.name}} > {{query.sourceStation.name}}</div>
+                    <div class="fnt-16 bold-text">Depart: {{result.ret.deptDate | date:option.dateFilter}}</div>
+                    <div class="fnt-16 bold-text">Arival: {{result.ret.arivalDate | date:option.dateFilter}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <img width="100" height="100" src="img/default-img.png" alt="test" class="img-rounded">
+            <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="bookTicket()">Book The Flight</button>
+        </div>
+    </div>
+</div>

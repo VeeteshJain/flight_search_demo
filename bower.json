@@ -1,0 +1,27 @@
+{
+  "name": "flightSearch",
+  "version": "0.0.0",
+  "authors": [
+    "veetesh <veeteshjain@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular": "~1.2.18",
+    "angular-animate": "~1.2.18",
+    "angular-cookies": "~1.2.18",
+    "bootstrap": "~3.3.6",
+    "angular-ui": "~0.4.0",
+    "angular-bootstrap": "~0.12.0",
+    "angular-route": "~1.2.18",
+    "ui-select": "angular-ui-select#^0.10.0",
+    "angular-sanitize": "^1.2.18",
+    "moment": "^2.11.2"
+  }
+}

@@ -1,0 +1,120 @@
+<div class="row">
+    <h1>Flight Search Engine</h1>
+</div>
+<div class="row search-top-border" ng-controller="filterCtrl">
+    <div class="col-md-4 col-sm-4 col-xs-12 filter-right-border padding-top-10 filter-correction">
+        <tabset justified="true">
+            <tab heading="One Way">
+            </tab>
+            <tab heading="Return" active="query.$$isReturn">
+            </tab>
+        </tabset>
+        <div class="well">
+            <form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Enter Origin City</label>
+                            <ui-select ng-model="query.sourceStation">
+                                <ui-select-match placeholder="Enter Origin City" allow-clear="true">
+                                    {{$select.selected.name +'&nbsp;|&nbsp;'+ $select.selected.code}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="location in (locationList | filter: $select.search)">
+                                    <span ng-bind-html="location.name | highlight: $select.search"></span> &nbsp;&nbsp;|&nbsp;&nbsp;
+                                    <span ng-bind-html="location.code | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Enter Destination City</label>
+                            <ui-select ng-model="query.destStation">
+                                <ui-select-match placeholder="Enter Destination City" allow-clear="true">
+                                    {{$select.selected.name +'&nbsp;|&nbsp;'+ $select.selected.code}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="location in (locationList | filter: $select.search)">
+                                    <span ng-bind-html="location.name | highlight: $select.search"></span> &nbsp;&nbsp;|&nbsp;&nbsp;
+                                    <span ng-bind-html="location.code | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Departure Date</label>
+                        <div class="input-group adjust-date-picker">
+                            <input <input type="text" class="form-control" datepicker-popup="{{'dd-MMMM-yyyy'}}" ng-model="query.sourceDate.date" is-open="query.sourceDate.$$isOpen" ng-required="true" close-text="Close" />
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event, query.sourceDate)">
+                            <i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Departure Time</label>
+                        <timepicker ng-model="query.sourceDate.date" hour-step="1" minute-step="15" show-meridian="true"></timepicker>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Return Date</label>
+                        <div class="input-group adjust-date-picker">
+                            <input <input type="text" class="form-control" datepicker-popup="{{'dd-MMMM-yyyy'}}" ng-model="query.retDate.date" is-open="query.retDate.$$isOpen" ng-disabled="!query.$$isReturn" ng-required="true" close-text="Close" />
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-disabled="!query.$$isReturn" ng-click="open($event, query.retDate)">
+                            <i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Return Time</label>
+                        <div ng-if="query.$$isReturn">
+                            <timepicker ng-model="query.retDate.date" hour-step="1" minute-step="15" show-meridian="true"></timepicker>
+                        </div>
+                        <div ng-if="!query.$$isReturn">
+                            <timepicker ng-model="query.retDate.date" readonly-input="true" hour-step="1" minute-step="15" show-meridian="true"></timepicker>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Number of Passengers</label>
+                            <select class="form-control" ng-model="query.passengerCount">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="button" data-ng-click="alert(query)">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8 col-sm-8 col-xs-12 padding-top-10 filter-left-border">
+        <div>
+            <div class="pull-left">
+                <ol class="breadcrumb">
+                    <li>{{query.sourceStation.name}}</li>
+                    <li>{{query.destStation.name}}</li>
+                    <li>{{query.sourceStation.name}}</li>
+                </ol>
+            </div>
+            <div class="pull-right">
+                <ul class="list-unstyled">
+                    <li>Depart: {{query.sourceDate.date | date:option.dateFilter}}</li>
+                    <li>Return: {{query.retDate.date | date:option.dateFilter}}</li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div>
+            <div ng-repeat="result in searchResult">
+                <ng-include src="'partials/flight-details.html'"></ng-include>
+            </div>
+        </div>
+    </div>
+</div>
